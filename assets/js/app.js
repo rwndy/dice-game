@@ -23,8 +23,12 @@ btn_roll.addEventListener('click', function() {
 
   if (dice !== 1) {
     roundScore += dice;
-    currentResultP1.textContent = roundScore;
+    currentResultP1.textContent = roundScore; //menambahkan score dan jika mendapatkan angka 1 maka ke player 2
   } else {
+    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+    roundScore = 0;
 
+    currentScoreP1.textContent = 0;
+    currentScoreP2.textContent = 0;
   }
 })
