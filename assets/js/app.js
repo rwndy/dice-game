@@ -4,6 +4,7 @@ roundScore = 0;
 activePlayer = 0;
 
 let dice;
+let gamePlay;
 
 
 const scoreGlobal1 = document.getElementById('score-0');
@@ -32,22 +33,28 @@ currentScoreP1.textContent = '0'; // menampilkan current score diplayer 1
 currentScoreP2.textContent = '0';
 imgDice.style.display = 'none'; //menyembunyikan gambar
 btn_roll.addEventListener('click', function() {
-  dice = Math.floor(Math.random() * 6) + 1;
 
-  imgDice.style.display = 'block'; //menampilkan gambar setelah game dimainkan
-  imgDice.src = 'assets/img/dice-' + dice + '.png'; //menampilkan gambar dadu di src img sesuai angka yang keluar
+  if (gamePlay) {
+    dice = Math.floor(Math.random() * 6) + 1;
+
+    imgDice.style.display = 'block'; //menampilkan gambar setelah game dimainkan
+    imgDice.src = 'assets/img/dice-' + dice + '.png'; //menampilkan gambar dadu di src img sesuai angka yang keluar
 
   if (dice !== 1) {
     roundScore += dice;
     currentResultP1.textContent = roundScore; //menambahkan score dan jika mendapatkan angka 1 maka ke player 2
   } else {
     nextPlayer();
+    }
   }
+  
 });
 
 //menyimpan nilai ketika menekan tombol hold
 btn_hold.addEventListener('click', function() {
-  scores[activePlayer] += roundScore; //menambah current score ke global score
+  if (gamePlay) {
+    
+    scores[activePlayer] += roundScore; //menambah current score ke global score
 
   GlobalResult.textContent = scores[activePlayer];
 
@@ -57,9 +64,12 @@ btn_hold.addEventListener('click', function() {
     imgDice.style.display = 'none';
     playerWin.classList.add('winner');
     playerWin.classList.remove('active');
+
+    gamePlay = false;
   } else {
     
     nextPlayer();
+  }
   }
 
 });
@@ -82,6 +92,7 @@ btn_new.addEventListener('click', function() {
   roundScore = 0;
   activePlayer = 0;
   imgDice.style.display = 'none';
+  gamePlay = true;
   
   scoreGlobal1.textContent = '0';
   scoreGlobal2.textContent = '0';
