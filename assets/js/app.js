@@ -10,7 +10,9 @@ const playerPanel0 = document.querySelector('.player-0-panel');
 const playerPanel1 = document.querySelector('.player-1-panel');
 const imgDice = document.querySelector('.dice');
 const btn_roll = document.querySelector('.btn-roll');
+const btn_hold = document.querySelector('.btn-hold');
 const currentResultP1 = document.querySelector('#current-' + activePlayer);
+const GlobalResult = document.querySelector('#score-' + activePlayer);
 
 scoreGlobal1.textContent = '0';
 scoreGlobal2.textContent = '0';
@@ -27,15 +29,28 @@ btn_roll.addEventListener('click', function() {
     roundScore += dice;
     currentResultP1.textContent = roundScore; //menambahkan score dan jika mendapatkan angka 1 maka ke player 2
   } else {
-    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
-    roundScore = 0;
-
-    currentScoreP1.textContent = '0';
-    currentScoreP2.textContent = '0';
-
-    playerPanel0.classList.toggle('active');
-    playerPanel1.classList.toggle('active');
-
-    imgDice.style.display = 'none';
+    nextPlayer();
   }
 });
+
+//menyimpan nilai ketika menekan tombol hold
+btn_hold.addEventListener('click', function() {
+  scores[activePlayer] += roundScore; //menambah current score ke global score
+  
+  GlobalResult.textContent = scores[activePlayer];
+
+  nextPlayer();
+});
+
+function nextPlayer() {
+  activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+  roundScore = 0;
+
+  currentScoreP1.textContent = '0';
+  currentScoreP2.textContent = '0';
+
+  playerPanel0.classList.toggle('active');
+  playerPanel1.classList.toggle('active');
+
+  imgDice.style.display = 'none';
+}
