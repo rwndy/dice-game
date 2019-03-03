@@ -6,6 +6,8 @@ const scoreGlobal1 = document.getElementById('score-0');
 const scoreGlobal2 = document.getElementById('score-1');
 const currentScoreP1 = document.getElementById('current-0');
 const currentScoreP2 = document.getElementById('current-1');
+const playerPanel0 = document.querySelector('.player-0-panel');
+const playerPanel1 = document.querySelector('.player-1-panel');
 const imgDice = document.querySelector('.dice');
 const btn_roll = document.querySelector('.btn-roll');
 const currentResultP1 = document.querySelector('#current-' + activePlayer);
@@ -28,7 +30,12 @@ btn_roll.addEventListener('click', function() {
     activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
     roundScore = 0;
 
-    currentScoreP1.textContent = 0;
-    currentScoreP2.textContent = 0;
+    currentScoreP1.textContent = '0';
+    currentScoreP2.textContent = '0';
+
+    playerPanel0.classList.toggle('active');
+    playerPanel1.classList.toggle('active');
+
+    imgDice.style.display = 'none';
   }
-})
+});
